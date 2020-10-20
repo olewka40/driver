@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, MenuItem, Select } from "@material-ui/core";
 import styled from "styled-components";
 import { DataContext } from "../../context/DataContext";
-
+import moment from "moment";
 export const RegLic = () => {
   const [licenseid, setLicenseid] = useState(0);
   const [expire_date, setExpire_date] = useState(0);
@@ -10,16 +10,21 @@ export const RegLic = () => {
 
   const { driver, account } = useContext(DataContext);
   const licenseRegistration = () => {
+    const date = expire_date.moment.format("DDMMYYYY");
+    console.log(date)
     driver.methods
-      .licenseRegistration(licenseid, expire_date, category)
+      .licenseRegistration(licenseid, date, category)
       .send({ from: account });
   };
-  return (
+
+    return (
     <Container>
       <TextField
         variant="outlined"
         placeholder="licenseid"
         margin="dense"
+        required={true}
+        type="number"
         onChange={(e) => {
           setLicenseid(e.target.value);
         }}
@@ -28,19 +33,27 @@ export const RegLic = () => {
         variant="outlined"
         placeholder="expire_date"
         margin="dense"
+        type="date"
+        required={true}
         onChange={(e) => {
           setExpire_date(e.target.value);
         }}
       />
-      <TextField
+
+      <StyledSelect
+        styled={{ height: 40, width: 223 }}
+        label="category"
+        value={category}
+        required={true}
         variant="outlined"
-        placeholder="category"
-        margin="dense"
         onChange={(e) => {
           setCategory(e.target.value);
         }}
-      />
-
+      >
+        <MenuItem value={1}>A</MenuItem>
+        <MenuItem value={2}>B</MenuItem>
+        <MenuItem value={3}>C</MenuItem>
+      </StyledSelect>
       <Button color="primary" variant="contained" onClick={licenseRegistration}>
         Зарегистрировать лицензию
       </Button>
@@ -54,4 +67,12 @@ const Container = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  .MuiFormControl-marginDense {
+    width: 222px;
+  }
+`;
+const StyledSelect = styled(Select)`
+  height: 40px;
+  width: 223px;
+  margin: 5px;
 `;

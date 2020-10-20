@@ -20,6 +20,8 @@ export const RegUser = () => {
         variant="outlined"
         placeholder="fio"
         margin="dense"
+        type="string"
+        required={true}
         onChange={(e) => {
           setFio(e.target.value);
         }}
@@ -28,6 +30,8 @@ export const RegUser = () => {
         variant="outlined"
         placeholder="accidents"
         margin="dense"
+        type="number"
+        required={true}
         onChange={(e) => {
           setAccidents(e.target.value);
         }}
@@ -36,6 +40,8 @@ export const RegUser = () => {
         variant="outlined"
         placeholder="unpayedFines"
         margin="dense"
+        type="number"
+        required={true}
         onChange={(e) => {
           setUnpayedFines(e.target.value);
         }}
@@ -44,6 +50,8 @@ export const RegUser = () => {
         variant="outlined"
         placeholder="expStart"
         margin="dense"
+        type="number"
+        required={true}
         onChange={(e) => {
           setExpStart(e.target.value);
         }}
