@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar } from "./components/NavBar";
 import { Profile } from "./components/Profile";
 import { Registration } from "./components/Registration";
-
+import { Allfunc } from "./components/AllFunc/index";
 const App = () => {
   const [driver, setDriver] = useState();
   const [data, setData] = useState([]);
@@ -57,6 +57,9 @@ const App = () => {
             </Route>
             <Route path="/profile">
               <Profile />
+            </Route>
+            <Route path="/functions">
+              <Allfunc />
             </Route>
             <Route path="/">
               <Main />

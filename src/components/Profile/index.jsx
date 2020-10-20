@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { DataContext } from "../context/DataContext";
 export const Profile = () => {
   const { data, account } = useContext(DataContext);
-  console.log(data);
   return (
     <StyledProfilePage>
       <Text>

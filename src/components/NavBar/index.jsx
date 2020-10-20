@@ -37,6 +37,39 @@ export const Navbar = () => {
     history.push("/registration/venicle");
     handleDrawerClose();
   };
+  const toUpdateLic = () => {
+    history.push("/registration/update/licence");
+    handleDrawerClose();
+  };
+  const insuranceDeposit = () => {
+    history.push("/functions/insuranceDeposit");
+    handleDrawerClose();
+  };
+  const insuranceAccept = () => {
+    history.push("/functions/insuranceAccept");
+    handleDrawerClose();
+  };
+  const fineIssue = () => {
+    history.push("/functions/fineIssue");
+    handleDrawerClose();
+  };
+  const finePay = () => {
+    history.push("/functions/finePay");
+    handleDrawerClose();
+  };
+  const accidentReg = () => {
+    history.push("/functions/accidentReg");
+    handleDrawerClose();
+  };
+  const insurancePay = () => {
+    history.push("/functions/insurancePay");
+    handleDrawerClose();
+  };
+  const others = () => {
+    history.push("/functions/other");
+    handleDrawerClose();
+  };
+
   const toHome = () => {
     history.push("/");
   };
@@ -131,29 +164,29 @@ export const Navbar = () => {
           <ListItem button onClick={toRegVenicle}>
             <ListItemText>Регистрация Транспорта </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={toUpdateLic}>
+            <ListItemText>Обновить лицензию </ListItemText>
+          </ListItem>
+          <ListItem button onClick={insuranceDeposit}>
             <ListItemText>insuranceDeposit</ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={insuranceAccept}>
             <ListItemText>insuranceAccept </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={fineIssue}>
             <ListItemText>fineIssue </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={finePay}>
             <ListItemText>finePay </ListItemText>
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={accidentReg}>
             <ListItemText>accidentReg </ListItemText>
           </ListItem>
-          <ListItem button>
-            <ListItemText>insurancePay</ListItemText>{" "}
+          <ListItem button onClick={insurancePay}>
+            <ListItemText>insurancePay</ListItemText>
           </ListItem>
-          <ListItem button>
-            <ListItemText>viewdebt </ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemText>insurancecredit </ListItemText>
+          <ListItem button onClick={others}>
+            <ListItemText>Другие функции </ListItemText>
           </ListItem>
         </ListUslug>
       </StyledDrawer>

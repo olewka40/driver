@@ -1,9 +1,6 @@
-import React, { useContext } from "react";
-import { DataContext } from "../context/DataContext";
+import React from "react";
 import styled from "styled-components";
 export const Main = () => {
-  const { driver } = useContext(DataContext);
-  console.log(driver);
   return <Container></Container>;
 };
 

@@ -131,7 +131,8 @@ contract Driver {
         }
     }
     function expire_date_secondsCount() public view returns (uint){
-        return(now - (((drivers[AddressToDriver[msg.sender]].expire_date%10000)*365*86400 + ((((drivers[AddressToDriver[msg.sender]].expire_date - (drivers[AddressToDriver[msg.sender]].expire_date%10000))/10000)%100)*30*86400) + (drivers[AddressToDriver[msg.sender]].expire_date - (drivers[AddressToDriver[msg.sender]].expire_date%1000000))/1000000*86400)-(1970*365*86400+1*30*86400+1*86400)));
+        uint x = drivers[AddressToDriver[msg.sender]].expire_date;
+        return((((x % 10000) * 365 * 86400 + ((((x - (x % 10000)) / 10000) % 100) * 30 * 86400) + ((x - (x % 1000000))/1000000)*86400)-(1970 * 365 * 86400))- now);
     }
     function licenseRenewal(uint new_licenseid, uint new_expire_date, uint new_category) public {
         require(expire_date_secondsCount() <= 30*86400,"До конца срока окончания удостоверения больше месяца");

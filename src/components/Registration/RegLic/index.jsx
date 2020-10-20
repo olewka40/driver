@@ -10,14 +10,13 @@ export const RegLic = () => {
 
   const { driver, account } = useContext(DataContext);
   const licenseRegistration = () => {
-    const date = expire_date.moment.format("DDMMYYYY");
-    console.log(date)
+    const date = moment(expire_date).format("DDMMYYYY");
     driver.methods
       .licenseRegistration(licenseid, date, category)
       .send({ from: account });
   };
 
-    return (
+  return (
     <Container>
       <TextField
         variant="outlined"
@@ -71,7 +70,7 @@ const Container = styled.div`
     width: 222px;
   }
 `;
-const StyledSelect = styled(Select)`
+export const StyledSelect = styled(Select)`
   height: 40px;
   width: 223px;
   margin: 5px;
