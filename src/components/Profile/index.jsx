@@ -3,31 +3,32 @@ import styled from "styled-components";
 import { DataContext } from "../context/DataContext";
 export const Profile = () => {
   const { data, account } = useContext(DataContext);
+  console.log(data);
   return (
     <StyledProfilePage>
       <Text>
         Eth Account<BoldText> {account}</BoldText>
       </Text>
       <Text>
-        FIO<BoldText> {data[0]}</BoldText>
+        FIO<BoldText> {data.FIO}</BoldText>
       </Text>
       <Text>
-        licenseid<BoldText> {data[1]}</BoldText>
+        licenseid<BoldText> {data.licenseid}</BoldText>
       </Text>
       <Text>
-        expire_date<BoldText> {data[2]}</BoldText>
+        expire_date<BoldText> {data.expire_date}</BoldText>
       </Text>
       <Text>
-        category<BoldText> {data[3]}</BoldText>
+        category<BoldText> {data.category}</BoldText>
       </Text>
       <Text>
-        exp_start<BoldText> {data[4]}</BoldText>
+        exp_start<BoldText> {data.exp_start}</BoldText>
       </Text>
       <Text>
-        accidents<BoldText> {data[5]}</BoldText>
+        accidents<BoldText> {data.accidents}</BoldText>
       </Text>
       <Text>
-        unpayed_fines<BoldText> {data[6]}</BoldText>
+        unpayed_fines<BoldText> {data.unpayed_fines}</BoldText>
       </Text>
     </StyledProfilePage>
   );

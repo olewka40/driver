@@ -39,9 +39,17 @@ contract Driver {
         drivers.push(Driver("Петров Петр Петрович", 0, 0, 0, 2010, 3, 0, 0, false,false,false,false,0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db));RoleCheck[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db] = 2;AddressToDriver[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db] = drivers.length - 1;
         LicenseIdToDriverAddress[0] = default_address;LicenseIdToDriverAddress[111] = default_address;LicenseIdToDriverAddress[222] = default_address;LicenseIdToDriverAddress[333] = default_address;LicenseIdToDriverAddress[444] = default_address;LicenseIdToDriverAddress[555] = default_address;LicenseIdToDriverAddress[666] = default_address;
     }
-    function driverInfo() public view returns(string memory, uint, uint, uint, uint, uint, uint, uint){
-        require(RoleCheck[msg.sender] != 0,"Вы не зарегистрированы");
-        return(drivers[AddressToDriver[msg.sender]].FIO, drivers[AddressToDriver[msg.sender]].licenseid, drivers[AddressToDriver[msg.sender]].expire_date, drivers[AddressToDriver[msg.sender]].category, drivers[AddressToDriver[msg.sender]].exp_start, drivers[AddressToDriver[msg.sender]].accidents, drivers[AddressToDriver[msg.sender]].unpayed_fines, drivers[AddressToDriver[msg.sender]].insurance_deposit);
+//    function driverInfo() public view returns(string memory, uint, uint, uint, uint, uint, uint, uint){
+//        require(RoleCheck[msg.sender] != 0,"Вы не зарегистрированы");
+//        return(drivers[AddressToDriver[msg.sender]].FIO, drivers[AddressToDriver[msg.sender]].licenseid, drivers[AddressToDriver[msg.sender]].expire_date, drivers[AddressToDriver[msg.sender]].category, drivers[AddressToDriver[msg.sender]].exp_start, drivers[AddressToDriver[msg.sender]].accidents, drivers[AddressToDriver[msg.sender]].unpayed_fines, drivers[AddressToDriver[msg.sender]].insurance_deposit);
+//    }
+    function driverInfoTest(address adr) public view returns(string memory, uint, uint, uint){
+        require(RoleCheck[adr] != 0,"Вы не зарегистрированы");
+        return(drivers[AddressToDriver[adr]].FIO,drivers[AddressToDriver[adr]].licenseid, drivers[AddressToDriver[adr]].expire_date, drivers[AddressToDriver[adr]].category);
+    }
+    function driverInfoTest1(address adr) public view returns( uint, uint, uint, uint){
+        require(RoleCheck[adr] != 0,"Вы не зарегистрированы");
+        return(drivers[AddressToDriver[adr]].exp_start, drivers[AddressToDriver[adr]].accidents, drivers[AddressToDriver[adr]].unpayed_fines, drivers[AddressToDriver[adr]].insurance_deposit);
     }
     function driverRegistration(string memory FIO, uint accidents, uint unpayed_fines, uint exp_start) public {
         require(RoleCheck[msg.sender] == 0, "Вы уже зарегистрированы");
