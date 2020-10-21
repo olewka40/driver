@@ -4,12 +4,11 @@ import { Route, Switch } from "react-router-dom";
 import { RegUser } from "./RegUser";
 import { RegLic } from "./RegLic";
 import { RegVenicle } from "./RegVenicle";
-import { UpdateLic } from "./RegLic/updateLic";
+// import { UpdateLic } from "./RegLic/updateLic";
 
 export const Registration = () => {
   return (
     <Container>
-
       <Switch>
         <Route path="/registration/user">
           <RegUser />
@@ -20,9 +19,9 @@ export const Registration = () => {
         <Route path="/registration/venicle">
           <RegVenicle />
         </Route>
-        <Route path="/registration/update/licence">
-          <UpdateLic />
-        </Route>
+        {/*<Route path="/registration/update/licence">*/}
+        {/*  <UpdateLic />*/}
+        {/*</Route>*/}
       </Switch>
     </Container>
   );
