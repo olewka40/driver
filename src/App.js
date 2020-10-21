@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Navbar } from "./components/NavBar";
 import { Profile } from "./components/Profile";
 import { Registration } from "./components/Registration";
-// import { Allfunc } from "./components/AllFunc/index";
+import { Allfunc } from "./components/AllFunc/index";
 const App = () => {
   const [driver, setDriver] = useState();
   const [data, setData] = useState([]);
@@ -43,6 +43,8 @@ const App = () => {
   const getDriverInfo = useCallback(async () => {
     const driverInfo = await driver.methods.driverInfoTest(account).call();
     const driverInfo1 = await driver.methods.driverInfoTest1(account).call();
+    const wfwfwf = await driver.methods.bank_address.call();
+    console.log(wfwfwf, 123123);
     setData({
       FIO: driverInfo[0],
       licenseid: driverInfo[1],
@@ -68,7 +70,9 @@ const App = () => {
             <Route path="/profile">
               <Profile />
             </Route>
-            <Route path="/functions">{/*<Allfunc />*/}</Route>
+            <Route path="/functions">
+              <Allfunc />
+            </Route>
             <Route path="/">
               <Main />
             </Route>
