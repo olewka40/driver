@@ -21,14 +21,28 @@ contract Driver {
         bool insurancerequest;
         address payable solidityadr;
     }
+    struct Fine {
+        uint id;
+        address payable driver;
+        uint time;
+        bool finished;
+    }
+    struct Insurance {
+        uint id;
+        address payable driver;
+        uint sum;
+    }
     uint bankdebt = 0;
+    Insurance[] insurances;
+    Fine[] fines;
     Vehicle[] vehicles;
     Driver[] drivers;
     mapping (address => uint) DriverCategory;
     mapping (address => uint) DriverToVehicle;
     mapping (address => uint) RoleCheck;
     mapping (address => uint) AddressToDriver;
-    mapping (address => uint) FineDiscount;
+    mapping (address => uint []) DriverFinesID;
+    mapping (address => uint []) DriverInsurancesID;
     mapping (uint => address payable) LicenseIdToDriverAddress;
     address payable bank_address = 0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB;
     address payable insurance_address = 0x617F2E2fD72FD9D5503197092aC168c91465E7f2;
@@ -50,6 +64,18 @@ contract Driver {
     function driverInfoTest1(address adr) public view returns( uint, uint, uint, uint){
         require(RoleCheck[adr] != 0,"Вы не зарегистрированы");
         return(drivers[AddressToDriver[adr]].exp_start, drivers[AddressToDriver[adr]].accidents, drivers[AddressToDriver[adr]].unpayed_fines, drivers[AddressToDriver[adr]].insurance_deposit);
+    }
+    function getFinesID() public view returns(uint[] memory ) {
+        return(DriverFinesID[msg.sender]);
+    }
+    function getInsurances() public view returns(uint[] memory) {
+        return(DriverInsurancesID[msg.sender]);
+    }
+    function getFine(uint fineID) public view returns(uint, bool) {
+        return(fines[fineID].id, fines[fineID].finished);
+    }
+    function getInsurance(uint InsuranceID) public view returns(uint, uint) {
+        return(insurances[InsuranceID].id,insurances[InsuranceID].sum);
     }
     function driverRegistration(string memory FIO, uint accidents, uint unpayed_fines, uint exp_start) public {
         require(RoleCheck[msg.sender] == 0, "Вы уже зарегистрированы");
@@ -86,22 +112,25 @@ contract Driver {
         }
     }
     function fineIssue(uint licenseid) public {
-        require(RoleCheck[msg.sender] == 1, "Вы не являетесь сотрудником ДПС");
-        require(LicenseIdToDriverAddress[licenseid] == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "Нет водителя с данным номером удостоверения");
+        require(RoleCheck[msg.sender] == 1, "?? ?? ????????? ??????????? ???");
+        require(LicenseIdToDriverAddress[licenseid] == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "??? ???????? ? ?????? ??????? ?????????????");
         drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].unpayed_fines++;
-        FineDiscount[drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr] = block.timestamp + 5 * 5;
+        DriverFinesID[LicenseIdToDriverAddress[licenseid]].push(fines.length);
+        fines.push(Fine(fines.length, drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, block.timestamp, false));
     }
-    function finePay(uint licenseid) public payable{
-        require(msg.sender == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "Вы ввели чужой номер водительского удостоверения");
-        if (FineDiscount[LicenseIdToDriverAddress[licenseid]] < block.timestamp) {
-            require(msg.value == 10,"Оплата штрафа стоит 10");
-            bank_address.transfer(10);
+    function finePay(uint licenseid, uint fineID) public payable{
+        require(fines[fineID].finished == false, "????? ??? ???????");
+        require(msg.sender == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "?? ????? ????? ????? ????????????? ?????????????");
+        if (block.timestamp - fines[fineID].time <= 5*5) {
+            require(msg.value == 5,"Оплата штрафа стоит 10");
+            bank_address.transfer(5);
+            fines[fineID].finished = true;
         }
         else {
-            require(msg.value == 5,"Оплата штрафа стоит 5");
-            bank_address.transfer(5);
+            require(msg.value == 10,"Оплата штрафа стоит 5");
+            bank_address.transfer(10);
+            fines[fineID].finished = true;
         }
-        FineDiscount[drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr] = 0;
         drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].unpayed_fines--;
     }
     function accidentReg(uint licenseid) public {
@@ -119,6 +148,8 @@ contract Driver {
         if (msg.sender.balance < drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].insurance_deposit*10) {
             bankdebt = bankdebt + drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].insurance_deposit*10;
         }
+        DriverInsurancesID[LicenseIdToDriverAddress[licenseid]].push(insurances.length);
+        insurances.push(Insurance(insurances.length,LicenseIdToDriverAddress[licenseid], drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].insurance_deposit*10));
     }
     function viewdebt() public view returns(uint) {
         require(msg.sender == bank_address, "Вы не являетесь банком");
@@ -153,3 +184,9 @@ contract Driver {
     }
 
 }
+
+
+
+
+
+

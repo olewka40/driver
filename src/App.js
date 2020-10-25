@@ -43,8 +43,7 @@ const App = () => {
   const getDriverInfo = useCallback(async () => {
     const driverInfo = await driver.methods.driverInfoTest(account).call();
     const driverInfo1 = await driver.methods.driverInfoTest1(account).call();
-    const wfwfwf = await driver.methods.bank_address.call();
-    console.log(wfwfwf, 123123);
+
     setData({
       FIO: driverInfo[0],
       licenseid: driverInfo[1],
