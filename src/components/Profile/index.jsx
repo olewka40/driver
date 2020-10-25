@@ -1,35 +1,52 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { DataContext } from "../context/DataContext";
+import { Button } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+
 export const Profile = () => {
+  const history = useHistory();
   const { data, account } = useContext(DataContext);
-  console.log(data);
+  const toFines = () => {
+    history.push("/fines");
+  };
   return (
     <StyledProfilePage>
       <Text>
-        Eth Account<BoldText> {account}</BoldText>
+        Аккаунт сети :<BoldText> {account}</BoldText>
       </Text>
       <Text>
-        FIO<BoldText> {data.FIO}</BoldText>
+        ФИО<BoldText> {data.FIO}</BoldText>
       </Text>
       <Text>
-        licenseid<BoldText> {data.licenseid}</BoldText>
+        Номер лицензии<BoldText> {data.licenseid}</BoldText>
       </Text>
       <Text>
-        expire_date<BoldText> {data.expire_date}</BoldText>
+        Годен до<BoldText> {data.expire_date}</BoldText>
       </Text>
       <Text>
-        category<BoldText> {data.category}</BoldText>
+        Категория<BoldText> {data.category}</BoldText>
       </Text>
       <Text>
-        exp_start<BoldText> {data.exp_start}</BoldText>
+        Начало вождения<BoldText> {data.exp_start}</BoldText>
       </Text>
       <Text>
         accidents<BoldText> {data.accidents}</BoldText>
       </Text>
       <Text>
-        unpayed_fines<BoldText> {data.unpayed_fines}</BoldText>
+        Количество неоплаченых штрафов<BoldText> {data.unpayed_fines}</BoldText>
       </Text>
+      <Text>
+        Сотрудник дпс
+        <BoldText>
+          {data.dps ? <BoldText>Да</BoldText> : <BoldText>Нет</BoldText>}
+        </BoldText>
+      </Text>
+      {data.unpayed_fines > 0 && (
+        <Button onClick={toFines} variant="contained" color="primary">
+          Просмотреть штрафы
+        </Button>
+      )}
     </StyledProfilePage>
   );
 };

@@ -9,6 +9,7 @@ import { Navbar } from "./components/NavBar";
 import { Profile } from "./components/Profile";
 import { Registration } from "./components/Registration";
 import { Allfunc } from "./components/AllFunc/index";
+import { Fines } from "./components/Profile/Fines";
 const App = () => {
   const [driver, setDriver] = useState();
   const [data, setData] = useState([]);
@@ -39,11 +40,13 @@ const App = () => {
     metaMask().then((r) => r);
     loadData().then((r) => r);
   }, [metaMask, loadData]);
+  window.ethereum.on("accountsChanged", (accounts) => {
+    setAccount(accounts);
+  });
 
   const getDriverInfo = useCallback(async () => {
     const driverInfo = await driver.methods.driverInfoTest(account).call();
     const driverInfo1 = await driver.methods.driverInfoTest1(account).call();
-
     setData({
       FIO: driverInfo[0],
       licenseid: driverInfo[1],
@@ -53,6 +56,7 @@ const App = () => {
       accidents: driverInfo1[1],
       unpayed_fines: driverInfo1[2],
       insurance_deposit: driverInfo1[3],
+      dps: driverInfo1[4],
     });
   }, [setData, account, driver]);
 
@@ -71,6 +75,9 @@ const App = () => {
             </Route>
             <Route path="/functions">
               <Allfunc />
+            </Route>
+            <Route path="/fines">
+              <Fines />
             </Route>
             <Route path="/">
               <Main />
