@@ -14,24 +14,14 @@ export const Fines = memo(() => {
   const [fines, setFines] = useState();
   const { driver, account } = useContext(DataContext);
   const getFines = useCallback(async () => {
-    const fine = await driver.methods.getFine(1).call();
-    console.log(fine);
     const finess = await driver.methods.getFinesID().call({ from: account });
-    finess.forEach(async (fine) => {
-      const fin = await driver.methods.getFine(fine).call();
-
-      setFines(...fines, {
-        id: fin.id,
-        finished: fin.id
-      });
-    });
+    const fine = await driver.methods.getFine(6).call({ from: account });
+    console.log(fine);
     console.log(finess);
   }, [driver, account]);
 
-  const finePay = async (id) => {
-    const driverInfo = await driver.methods.driverInfoTest(account).call();
-
-    await driver.methods.finePay(driverInfo[1], finePay(id)).call();
+  const finePay = async () => {
+    await driver.methods.finePay(111, 6).send({ from: account, value: 10 });
   };
   // useEffect(() => {
   // getFines().then((r) => r);
@@ -43,7 +33,7 @@ export const Fines = memo(() => {
       {/*    <CardInfo>*/}
       {/*      <div>fine.id</div>*/}
       {/*      <div>fine.finished</div>*/}
-      {/*      <Button onClick={finePay(fine.id)}>Îןכאעטעü רענאפ</Button>*/}
+      <Button onClick={finePay}>Îןכאעטעü רענאפ</Button>
       {/*    </CardInfo>*/}
       {/*    123123*/}
       {/*  </Card>*/}

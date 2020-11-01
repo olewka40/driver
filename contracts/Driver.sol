@@ -48,15 +48,15 @@ contract Driver {
     address payable insurance_address = 0x617F2E2fD72FD9D5503197092aC168c91465E7f2;
     address payable default_address = 0x0000000000000000000000000000000000000000;
     constructor () public {
-        drivers.push(Driver("Иванов Иван Иванович", 0, 0, 0, 2018, 0, 0, 0, true,false,false,false,0x5B38Da6a701c568545dCfcB03FcB875f56beddC4));
-        RoleCheck[0x5B38Da6a701c568545dCfcB03FcB875f56beddC4] = 1;AddressToDriver[0x5B38Da6a701c568545dCfcB03FcB875f56beddC4] = drivers.length - 1;
+        drivers.push(Driver("Иванов Иван Иванович", 0, 0, 0, 2018, 0, 0, 0, true,false,false,false,0x82398aCb8D7136FEFaD951559769B7554F89A9a9));
+        RoleCheck[0x82398aCb8D7136FEFaD951559769B7554F89A9a9] = 1;AddressToDriver[0x82398aCb8D7136FEFaD951559769B7554F89A9a9] = drivers.length - 1;
         drivers.push(Driver("Семенов Семен Семенович", 0, 0, 0, 2015, 0, 0, 0, false,false,false,false,0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2));
         RoleCheck[0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2] = 2;AddressToDriver[0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2] = drivers.length - 1;
         drivers.push(Driver("Петров Петр Петрович", 0, 0, 0, 2010, 3, 0, 0, false,false,false,false,0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db));
         RoleCheck[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db] = 2;AddressToDriver[0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db] = drivers.length - 1;
-        fines.push(Fine(0,0x9Bd277449C54b3b1b5125Fd919c3E9b6C7Ee7509,22222222,false));
-        fines.push(Fine(1,0x9Bd277449C54b3b1b5125Fd919c3E9b6C7Ee7509,222222222,false));
-        fines.push(Fine(2,0x9Bd277449C54b3b1b5125Fd919c3E9b6C7Ee7509,222232222,false));
+        fines.push(Fine(0,0x6147C886939B675725AF88356a5430b4F398C6CF,12222222,false));
+        fines.push(Fine(1,0x6147C886939B675725AF88356a5430b4F398C6CF,1222222222,false));
+        fines.push(Fine(2,0x6147C886939B675725AF88356a5430b4F398C6CF,122232222,false));
         LicenseIdToDriverAddress[0] = default_address;LicenseIdToDriverAddress[111] = default_address;LicenseIdToDriverAddress[222] = default_address;LicenseIdToDriverAddress[333] = default_address;LicenseIdToDriverAddress[444] = default_address;LicenseIdToDriverAddress[555] = default_address;LicenseIdToDriverAddress[666] = default_address;
     }
 //    function driverInfo() public view returns(string memory, uint, uint, uint, uint, uint, uint, uint){
@@ -90,8 +90,8 @@ contract Driver {
         AddressToDriver[msg.sender] = drivers.length - 1;
     }
     function licenseRegistration(uint licenseid, uint expire_date, uint category) public {
-        require(RoleCheck[msg.sender] != 0,"Вы не зарегистрированы");
-        require(LicenseIdToDriverAddress[licenseid] == default_address, "Этот номер уже занят");
+//        require(RoleCheck[msg.sender] != 0,"Вы не зарегистрированы");
+//        require(LicenseIdToDriverAddress[licenseid] == default_address, "Этот номер уже занят");
         drivers[AddressToDriver[msg.sender]].licenseid = licenseid;
         drivers[AddressToDriver[msg.sender]].expire_date = expire_date;
         drivers[AddressToDriver[msg.sender]].category = category;
@@ -118,8 +118,8 @@ contract Driver {
         }
     }
     function fineIssue(uint licenseid) public {
-        require(RoleCheck[msg.sender] == 1, "?? ?? ????????? ??????????? ???");
-        require(LicenseIdToDriverAddress[licenseid] == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "??? ???????? ? ?????? ??????? ?????????????");
+//        require(RoleCheck[msg.sender] == 1, "?? ?? ????????? ??????????? ???");
+//        require(LicenseIdToDriverAddress[licenseid] == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "??? ???????? ? ?????? ??????? ?????????????");
         drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].unpayed_fines++;
         DriverFinesID[LicenseIdToDriverAddress[licenseid]].push(fines.length);
         fines.push(Fine(fines.length, drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, block.timestamp, false));
