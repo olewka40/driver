@@ -21,7 +21,7 @@ export const FineIssue = () => {
         }}
       />
       <Button color="primary" variant="contained" onClick={fineIssue}>
-        Зарегистрировать транспортное средство
+        Добавить штраф
       </Button>
     </Container>
   );
