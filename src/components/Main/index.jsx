@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 export const Main = () => {
   return (
     <Container>
-      Добро пожаловать
-      <Link to="/profile"> Перейти в профиль</Link>
+      Р”РѕР±СЂРѕ РїРѕР¶Р°Р»РѕРІР°С‚СЊ
+      <Link to="/profile"> РџРµСЂРµР№С‚Рё РІ РїСЂРѕС„РёР»СЊ</Link>
     </Container>
   );
 };

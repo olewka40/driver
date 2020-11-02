@@ -19,7 +19,6 @@ export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const { getDriverInfo } = useContext(DataContext);
   const history = useHistory();
-
   const toProfile = () => {
     getDriverInfo();
     history.push("/profile");

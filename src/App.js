@@ -13,6 +13,7 @@ import { Fines } from "./components/Profile/Fines";
 const App = () => {
   const [driver, setDriver] = useState();
   const [data, setData] = useState([]);
+
   const [account, setAccount] = useState("");
 
   const metaMask = useCallback(async () => {
@@ -20,7 +21,6 @@ const App = () => {
     await window.ethereum.enable();
     console.log("good");
   }, []);
-
   const loadData = useCallback(async () => {
     const web3 = window.web3;
     const accounts = await web3.eth.getAccounts();
@@ -35,7 +35,11 @@ const App = () => {
       alert("Vse Ploho");
     }
   }, []);
+  window.ethereum.on("accountsChanged", (accounts) => {
+    setAccount(accounts[0]);
 
+    console.log(accounts[0], "213123");
+  });
   useEffect(() => {
     metaMask().then((r) => r);
     loadData().then((r) => r);
@@ -47,6 +51,7 @@ const App = () => {
   const getDriverInfo = useCallback(async () => {
     const driverInfo = await driver.methods.driverInfoTest(account).call();
     const driverInfo1 = await driver.methods.driverInfoTest1(account).call();
+    console.log(driverInfo1);
     setData({
       FIO: driverInfo[0],
       licenseid: driverInfo[1],

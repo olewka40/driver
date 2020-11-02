@@ -90,8 +90,8 @@ contract Driver {
         AddressToDriver[msg.sender] = drivers.length - 1;
     }
     function licenseRegistration(uint licenseid, uint expire_date, uint category) public {
-//        require(RoleCheck[msg.sender] != 0,"Вы не зарегистрированы");
-//        require(LicenseIdToDriverAddress[licenseid] == default_address, "Этот номер уже занят");
+        require(RoleCheck[msg.sender] != 0,"Вы не зарегистрированы");
+        require(LicenseIdToDriverAddress[licenseid] == default_address, "Этот номер уже занят");
         drivers[AddressToDriver[msg.sender]].licenseid = licenseid;
         drivers[AddressToDriver[msg.sender]].expire_date = expire_date;
         drivers[AddressToDriver[msg.sender]].category = category;
@@ -118,8 +118,8 @@ contract Driver {
         }
     }
     function fineIssue(uint licenseid) public {
-//        require(RoleCheck[msg.sender] == 1, "Вы не являетесь полицейским ???");
-//        require(LicenseIdToDriverAddress[licenseid] == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "??? ???????? ? ?????? ??????? ?????????????");
+        require(RoleCheck[msg.sender] == 1, "Вы не являетесь полицейским ???");
+        require(LicenseIdToDriverAddress[licenseid] == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "??? ???????? ? ?????? ??????? ?????????????");
         drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].unpayed_fines++;
         DriverFinesID[LicenseIdToDriverAddress[licenseid]].push(fines.length);
         fines.push(Fine(fines.length, drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, block.timestamp, false));
@@ -128,12 +128,12 @@ contract Driver {
         require(fines[fineID].finished == false, "????? ??? ???????");
         require(msg.sender == drivers[AddressToDriver[LicenseIdToDriverAddress[licenseid]]].solidityadr, "?? ????? ????? ????? ????????????? ?????????????");
         if (block.timestamp - fines[fineID].time <= 5*5) {
-            require(msg.value == 5,"Оплата штрафа стоит 10");
+            require(msg.value == 5,"Оплата штрафа стоит 5");
             bank_address.transfer(5);
             fines[fineID].finished = true;
         }
         else {
-            require(msg.value == 10,"Оплата штрафа стоит 5");
+            require(msg.value == 10,"Оплата штрафа стоит 10");
             bank_address.transfer(10);
             fines[fineID].finished = true;
         }

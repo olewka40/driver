@@ -13,38 +13,38 @@ export const Profile = () => {
   return (
     <StyledProfilePage>
       <Text>
-        Аккаунт сети :<BoldText> {account}</BoldText>
+        РђРєРєР°СѓРЅС‚ СЃРµС‚Рё :<BoldText> {account}</BoldText>
       </Text>
       <Text>
-        ФИО<BoldText> {data.FIO}</BoldText>
+        Р¤РРћ<BoldText> {data.FIO}</BoldText>
       </Text>
       <Text>
-        Номер лицензии<BoldText> {data.licenseid}</BoldText>
+        РќРѕРјРµСЂ Р»РёС†РµРЅР·РёРё<BoldText> {data.licenseid}</BoldText>
       </Text>
       <Text>
-        Годен до<BoldText> {data.expire_date}</BoldText>
+        Р“РѕРґРµРЅ РґРѕ<BoldText> {data.expire_date}</BoldText>
       </Text>
       <Text>
-        Категория<BoldText> {data.category}</BoldText>
+        РљР°С‚РµРіРѕСЂРёСЏ<BoldText> {data.category}</BoldText>
       </Text>
       <Text>
-        Начало вождения<BoldText> {data.exp_start}</BoldText>
+        РќР°С‡Р°Р»Рѕ РІРѕР¶РґРµРЅРёСЏ<BoldText> {data.exp_start}</BoldText>
       </Text>
       <Text>
         accidents<BoldText> {data.accidents}</BoldText>
       </Text>
       <Text>
-        Количество неоплаченых штрафов<BoldText> {data.unpayed_fines}</BoldText>
+        РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРµРѕРїР»Р°С‡РµРЅС‹С… С€С‚СЂР°С„РѕРІ<BoldText> {data.unpayed_fines}</BoldText>
       </Text>
       <Text>
-        Сотрудник дпс
+        РЎРѕС‚СЂСѓРґРЅРёРє РґРїСЃ
         <BoldText>
-          {data.dps ? <BoldText>Да</BoldText> : <BoldText>Нет</BoldText>}
+          {data.dps ? <BoldText>Р”Р°</BoldText> : <BoldText>РќРµС‚</BoldText>}
         </BoldText>
       </Text>
       {data.unpayed_fines > 0 && (
         <Button onClick={toFines} variant="contained" color="primary">
-          Просмотреть штрафы
+          РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ С€С‚СЂР°С„С‹
         </Button>
       )}
     </StyledProfilePage>

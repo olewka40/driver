@@ -80,11 +80,11 @@ contract Driver {
         Rolecheck[msg.sender] = 2;
     }
     function licenseRegistration(uint licenseid) public {
-        require(Rolecheck[msg.sender] != 0, "Вы не зарегистрированы");
-        require(licenseid_busy[licenseid] == default_adr, "Это водительское удостоверение занято");
-        drivers[AddressToDriverId[msg.sender]].licenseid = licenseid;
-        drivers[AddressToDriverId[msg.sender]].expire_date = licenseid_expire[licenseid];
-        drivers[AddressToDriverId[msg.sender]].category = licenseid_category[licenseid];
+        require(RoleCheck[msg.sender] != 0, "Вы не зарегистрированы");
+        require(LicenseIdToDriverAddress[licenseid] == default_address, "Этот номер уже занят");
+        drivers[AddressToDriver[msg.sender]].licenseid = licenseid;
+        drivers[AddressToDriver[msg.sender]].expire_date = licenseid_expire[licenseid];
+        drivers[AddressToDriver[msg.sender]].category = licenseid_category[licenseid];
         licenseid_busy[licenseid] = msg.sender;
         LicenseToAddress[licenseid] = msg.sender;
     }

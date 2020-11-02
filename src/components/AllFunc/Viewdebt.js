@@ -22,20 +22,20 @@ export const ViewDbt = () => {
   return (
     <Container>
       <Button color="primary" variant="contained" onClick={viewDebt}>
-        Посмотреть банковский счет
+        РџРѕСЃРјРѕС‚СЂРµС‚СЊ Р±Р°РЅРєРѕРІСЃРєРёР№ СЃС‡РµС‚
       </Button>
       <Button color="primary" variant="contained" onClick={insurancecredit}>
-        Кредит
+        РљСЂРµРґРёС‚
       </Button>
       <Button color="primary" variant="contained" onClick={creditReturn}>
-        Вернуть Кредит
+        Р’РµСЂРЅСѓС‚СЊ РљСЂРµРґРёС‚
       </Button>{" "}
       <Button
         color="primary"
         variant="contained"
         onClick={expire_date_secondsCount}
       >
-        Истечение срока действия
+        РСЃС‚РµС‡РµРЅРёРµ СЃСЂРѕРєР° РґРµР№СЃС‚РІРёСЏ
       </Button>
       {debt}
     </Container>
